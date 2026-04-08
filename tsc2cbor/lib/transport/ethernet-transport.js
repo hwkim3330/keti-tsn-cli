@@ -102,10 +102,10 @@ class EthernetTransport extends Transport {
         resolve();
       });
 
-      // Bind to a fixed local port to reuse the same source endpoint.
-      // The device's CoAP server tracks source IP:port pairs, and using
-      // random ports exhausts its endpoint table after ~4 requests.
-      const localPort = options.localPort || 15683;
+      // Use OS-assigned port (0) to avoid EADDRINUSE when multiple
+      // CLI instances run concurrently. The device endpoint table concern
+      // is mitigated by proper disconnect() after each request.
+      const localPort = options.localPort || 0;
       this.socket.bind({ port: localPort, exclusive: false });
     });
   }
