@@ -55,6 +55,7 @@ Commands:
   fetch <file>          Fetch configuration values from device
   patch <file>          Apply configuration patch to device
   post <file>           Invoke RPC operation (e.g., save-config)
+  reboot                Reboot the device
 
 Transport Options:
   --transport <type>    Transport type: serial | wifi | eth (default: ${DEFAULT_TRANSPORT})
@@ -260,6 +261,12 @@ async function main() {
           process.exit(1);
         }
         await postCommand(options.file, options);
+        break;
+      }
+
+      case 'reboot': {
+        const { rebootCommand } = await import('../lib/commands/reboot.js');
+        await rebootCommand(options);
         break;
       }
 

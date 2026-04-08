@@ -1,0 +1,4 @@
+# 보드 재부팅 (ietf-system:system-restart RPC)
+# 사용법: keti-tsn reboot
+#         keti-tsn reboot --transport eth --host 192.168.1.10
+- "/ietf-system:system-restart":
